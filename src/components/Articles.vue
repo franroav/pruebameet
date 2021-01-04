@@ -45,6 +45,16 @@
                     >
                   </v-list-item-content>
                 </v-list-item>
+                <v-list-item>
+                  <v-list-item-content>
+                    <v-list-item-title @click="getcharactersList('characters')"
+                      >CHARACTERS</v-list-item-title
+                    >
+                  </v-list-item-content>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-content> ..... </v-list-item-content>
+                </v-list-item>
               </v-list-item-group>
             </v-list>
           </v-card>
@@ -163,6 +173,7 @@
 
 <script>
 import axios from "axios";
+//import Login from "./Login.vue";
 
 export default {
   name: "Articles",
@@ -173,6 +184,8 @@ export default {
     arrRecetas: [],
     arrConsejos: [],
     visibility: "row hide",
+    dialogm1: "",
+    dialog: false,
   }),
   mounted() {
     this.title = "articulos";
@@ -193,6 +206,20 @@ export default {
     redirectUrl(url) {
       //window.location.href = url;
       this.$router.push(url);
+    },
+    getcharactersList() {
+      try {
+        var vm = this;
+        this.title = "productos";
+        let datos = axios
+          .get(`http://localhost:3000/character`)
+          .then((data) => {
+            console.log(data);
+            //vm.productList(productos.data);
+          });
+      } catch (error) {
+        console.log(error);
+      }
     },
     articleList(articles) {
       this.articleStorage(articles);
